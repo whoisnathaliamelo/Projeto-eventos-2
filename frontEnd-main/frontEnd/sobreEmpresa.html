@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre a Empresa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: #1f2937;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 1.5rem;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .nav-link {
+            padding: 0.5rem 1rem;
+            color: #4b5563;
+            transition: color 0.2s;
+        }
+        .nav-link:hover {
+            color: #1f2937;
+        }
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #d1d5db;
+            background-color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="container flex justify-between items-center py-4">
+            <div class="flex items-center space-x-8">
+                <a href="#" class="text-xl font-bold text-gray-800">Culture Hub</a>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="telaPrincipal.html" class="nav-link font-medium">Eventos</a>
+                    <a href="sobreEmpresa.html" class="nav-link font-medium text-blue-600">Sobre</a>
+                    <a href="#" class="nav-link font-medium">Contato</a>
+                </nav>
+            </div>
+            <a href="criarEventos.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+                Criar Evento...
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container py-8">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h1 class="text-3xl font-bold mb-4">Sobre Centro Cultural</h1>
+                <p class="text-gray-600 mb-8">
+                    O Culture Hub é uma plataforma dedicada a promover eventos culturais locais e conectar comunidades por meio de experiências compartilhadas. Nossa missão é tornar os eventos culturais mais acessíveis e apoiar artistas e organizações locais.
+                </p>
+                
+                <h2 class="text-2xl font-bold mb-4">Nossa Missão</h2>
+                <p class="text-gray-600 mb-8">
+                    Acreditamos que eventos culturais são essenciais para construir comunidades fortes e fomentar a criatividade. Nossa plataforma pretende ser o recurso ideal para descobrir e participar de atividades culturais locais, desde concertos e exposições a workshops e festivais.
+                </p>
+                
+                <h2 class="text-2xl font-bold mb-4">Conheça a equipe</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center mb-12">
+                    <div>
+                        <img src="https://placehold.co/150x150/D1D5DB/6B7280?text=Sarah" alt="Sarah Miller" class="w-36 h-36 rounded-full mx-auto mb-4 object-cover">
+                        <p class="font-semibold text-lg text-gray-800">Sarah Miller</p>
+                        <p class="text-sm text-gray-500">Founder & CEO</p>
+                    </div>
+                    <div>
+                        <img src="https://placehold.co/150x150/D1D5DB/6B7280?text=David" alt="David Chen" class="w-36 h-36 rounded-full mx-auto mb-4 object-cover">
+                        <p class="font-semibold text-lg text-gray-800">David Chen</p>
+                        <p class="text-sm text-gray-500">Head of Technology</p>
+                    </div>
+                    <div>
+                        <img src="https://placehold.co/150x150/D1D5DB/6B7280?text=Emily" alt="Emily Rodriguez" class="w-36 h-36 rounded-full mx-auto mb-4 object-cover">
+                        <p class="font-semibold text-lg text-gray-800">Emily Rodriguez</p>
+                        <p class="text-sm text-gray-500">Community Manager</p>
+                    </div>
+                </div>
+                
+                <h2 class="text-2xl font-bold mb-4">Contate-nos</h2>
+                <p class="text-gray-600 mb-6">
+                    Adoraríamos saber sua opinião! Se tiver dúvidas, comentários ou quiser colaborar, entre em contato conosco pelo formulário abaixo.
+                </p>
+                <form class="space-y-4">
+                    <div>
+                        <label for="name" class="sr-only">Seu nome</label>
+                        <input type="text" id="name" placeholder="Seu nome" class="form-input">
+                    </div>
+                    <div>
+                        <label for="email" class="sr-only">Seu e-mail</label>
+                        <input type="email" id="email" placeholder="Seu e-mail" class="form-input">
+                    </div>
+                    <div>
+                        <label for="message" class="sr-only">Sua mensagem</label>
+                        <textarea id="message" rows="4" placeholder="Sua mensagem" class="form-input"></textarea>
+                    </div>
+                    <button type="submit" class="bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                        Enviar mensagem
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

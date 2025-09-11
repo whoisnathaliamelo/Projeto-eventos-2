@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culture Hub - Descubra Eventos Culturais Locais</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: #1f2937;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 1.5rem;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .nav-link {
+            padding: 0.5rem 1rem;
+            color: #4b5563;
+            transition: color 0.2s;
+        }
+        .nav-link:hover {
+            color: #1f2937;
+        }
+        .event-card {
+            border-radius: 0.75rem;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .category-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+        .category-card:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="container flex justify-between items-center py-4">
+            <div class="flex items-center space-x-8">
+                <a href="#" class="text-xl font-bold text-gray-800">Culture Hub</a>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="telaPrincipal.html" class="nav-link font-medium text-blue-600">Início</a>
+                    <a href="meusEventos.html" class="nav-link font-medium">Meus Eventos</a>
+                    <a href="telaCalendario.html" class="nav-link font-medium">Eventos</a>
+                    <a href="sobreEmpresa.html" class="nav-link font-medium">Sobre Nós</a>
+                </nav>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#" class="nav-link font-medium text-gray-600 hidden md:block">Login</a>
+                <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition">Cadastre-se</a>
+                <a href="telaPerfil.html" class="w-10 h-10 rounded-full overflow-hidden hidden md:block">
+                    <img src="https://placehold.co/40x40/E5E7EB/4B5563?text=User" alt="User Profile" class="w-full h-full object-cover">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <div class="container py-12">
+            <div class="relative bg-gray-300 rounded-lg overflow-hidden h-96">
+                <img src="https://placehold.co/1200x400/1F2937/FFFFFF?text=Imagem+do+Hero" alt="Hero Image" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                    <div class="text-center text-white p-6">
+                        <h1 class="text-4xl sm:text-5xl font-bold mb-4">Descubra eventos culturais locais</h1>
+                        <p class="text-lg mb-6 max-w-2xl mx-auto">Encontre e explore uma variedade de eventos culturais acontecendo na sua cidade. De shows de música a exposições de arte, temos algo para todos os gostos.</p>
+                        <a href="telaCalendario.html" class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition">Explorar Eventos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="container -mt-10 mb-12 relative z-10">
+            <input type="text" placeholder="Pesquisa de Eventos" class="w-full px-6 py-4 rounded-full shadow-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Featured Events -->
+        <div class="container py-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Eventos em destaque</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Event Card 1 -->
+                <a href="detalheEventos.html" class="event-card">
+                    <img src="https://placehold.co/300x200/E5E7EB/4B5563?text=Arte" alt="Event Image" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg text-gray-900 mb-1">Exposição de Arte: Expressões Modernas</h3>
+                        <p class="text-sm text-gray-500 line-clamp-2">Explore arte contemporânea de artistas locais.</p>
+                    </div>
+                </a>
+                <!-- Event Card 2 -->
+                <a href="detalheEventos.html" class="event-card">
+                    <img src="https://placehold.co/300x200/E5E7EB/4B5563?text=Musica" alt="Event Image" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg text-gray-900 mb-1">Música ao vivo: Noite de Indie Rock</h3>
+                        <p class="text-sm text-gray-500 line-clamp-2">Aproveite uma noite de Indie Rock com bandas em ascensão.</p>
+                    </div>
+                </a>
+                <!-- Event Card 3 -->
+                <a href="detalheEventos.html" class="event-card">
+                    <img src="https://placehold.co/300x200/E5E7EB/4B5563?text=Teatro" alt="Event Image" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg text-gray-900 mb-1">Teatro: Sonho de uma noite de verão</h3>
+                        <p class="text-sm text-gray-500 line-clamp-2">Vivencie a comédia atemporal de Shakespeare.</p>
+                    </div>
+                </a>
+                <!-- Event Card 4 -->
+                <a href="detalheEventos.html" class="event-card">
+                    <img src="https://placehold.co/300x200/E5E7EB/4B5563?text=Cinema" alt="Event Image" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg text-gray-900 mb-1">Exibição de Filme: Cinema Clássico</h3>
+                        <p class="text-sm text-gray-500 line-clamp-2">Assista a um filme clássico na tela grande.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Categories Section -->
+        <div class="container py-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Categorias de Eventos</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+                <!-- Category Card -->
+                <a href="#" class="category-card">
+                    <span class="text-4xl mb-2">🎶</span>
+                    <span class="text-gray-700 font-medium">Música</span>
+                </a>
+                <a href="#" class="category-card">
+                    <span class="text-4xl mb-2">🎭</span>
+                    <span class="text-gray-700 font-medium">Teatro</span>
+                </a>
+                <a href="#" class="category-card">
+                    <span class="text-4xl mb-2">🎬</span>
+                    <span class="text-gray-700 font-medium">Cinema</span>
+                </a>
+                <a href="#" class="category-card">
+                    <span class="text-4xl mb-2">🎨</span>
+                    <span class="text-gray-700 font-medium">Arte</span>
+                </a>
+                <a href="#" class="category-card">
+                    <span class="text-4xl mb-2">🎤</span>
+                    <span class="text-gray-700 font-medium">Comédia</span>
+                </a>
+                <a href="#" class="category-card">
+                    <span class="text-4xl mb-2">📚</span>
+                    <span class="text-gray-700 font-medium">Literatura</span>
+                </a>
+                <a href="#" class="category-card">
+                    <span class="text-4xl mb-2">🕺</span>
+                    <span class="text-gray-700 font-medium">Dança</span>
+                </a>
+                <a href="#" class="category-card">
+                    <span class="text-4xl mb-2">🍲</span>
+                    <span class="text-gray-700 font-medium">Gastronomia</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-8 mt-12">
+        <div class="container text-center text-gray-500">
+            <p>&copy; 2025 Culture Hub. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

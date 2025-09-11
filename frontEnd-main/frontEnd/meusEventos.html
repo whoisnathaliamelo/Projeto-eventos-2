@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Eventos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: #1f2937;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 1.5rem;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .nav-link {
+            padding: 0.5rem 1rem;
+            color: #4b5563;
+            transition: color 0.2s;
+        }
+        .nav-link:hover {
+            color: #1f2937;
+        }
+        .event-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .event-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="container flex justify-between items-center py-4">
+            <div class="flex items-center space-x-8">
+                <a href="#" class="text-xl font-bold text-gray-800">Culture Hub</a>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="telaPrincipal.html" class="nav-link font-medium">Explorar</a>
+                    <a href="criarEventos.html" class="nav-link font-medium">Criar Eventos</a>
+                    <a href="meusEventos.html" class="nav-link font-medium text-blue-600">Meus Eventos</a>
+                </nav>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="text-gray-500 hover:text-gray-700 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+                <a href="telaPerfil.html" class="w-10 h-10 rounded-full overflow-hidden hidden md:block">
+                    <img src="https://placehold.co/40x40/E5E7EB/4B5563?text=User" alt="User Profile" class="w-full h-full object-cover">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container py-8">
+            <h1 class="text-3xl font-bold mb-8">Meus Eventos</h1>
+            
+            <div class="flex items-center space-x-4 mb-8">
+                <select class="px-4 py-2 rounded-lg border border-gray-300">
+                    <option>Date</option>
+                </select>
+                <select class="px-4 py-2 rounded-lg border border-gray-300">
+                    <option>Category</option>
+                </select>
+            </div>
+            
+            <!-- Eventos Criados Section -->
+            <h2 class="text-2xl font-bold mb-4">Eventos Criados</h2>
+            <div class="space-y-6 mb-12">
+                <!-- Event Item 1 -->
+                <a href="detalheEventos.html" class="event-item">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-gray-800">Local Art Fair</h3>
+                        <p class="text-sm text-gray-500">Date: July 15, 2024 | Location: City Center Park</p>
+                    </div>
+                    <img src="https://placehold.co/120x80/E5E7EB/4B5563?text=Arte" alt="Event Image" class="w-24 h-20 md:w-32 md:h-24 object-cover rounded-lg ml-4">
+                </a>
+                <!-- Event Item 2 -->
+                <a href="detalheEventos.html" class="event-item">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-gray-800">Indie Music Night</h3>
+                        <p class="text-sm text-gray-500">Date: August 22, 2024 | Location: The Underground Club</p>
+                    </div>
+                    <img src="https://placehold.co/120x80/E5E7EB/4B5563?text=Música" alt="Event Image" class="w-24 h-20 md:w-32 md:h-24 object-cover rounded-lg ml-4">
+                </a>
+            </div>
+            
+            <!-- Inscrições Section -->
+            <h2 class="text-2xl font-bold mb-4">Inscrições</h2>
+            <div class="space-y-6">
+                <!-- Event Item 3 -->
+                <a href="detalheEventos.html" class="event-item">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-gray-800">Community Theater Play</h3>
+                        <p class="text-sm text-gray-500">Date: June 28, 2024 | Location: Community Theater</p>
+                    </div>
+                    <img src="https://placehold.co/120x80/E5E7EB/4B5563?text=Teatro" alt="Event Image" class="w-24 h-20 md:w-32 md:h-24 object-cover rounded-lg ml-4">
+                </a>
+                <!-- Event Item 4 -->
+                <a href="detalheEventos.html" class="event-item">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-gray-800">Book Reading with Author Clara Bennett</h3>
+                        <p class="text-sm text-gray-500">Date: July 5, 2024 | Location: Central Library</p>
+                    </div>
+                    <img src="https://placehold.co/120x80/E5E7EB/4B5563?text=Livro" alt="Event Image" class="w-24 h-20 md:w-32 md:h-24 object-cover rounded-lg ml-4">
+                </a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

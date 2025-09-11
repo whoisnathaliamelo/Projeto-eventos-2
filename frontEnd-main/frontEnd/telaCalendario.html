@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário de Eventos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: #1f2937;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 1.5rem;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .nav-link {
+            padding: 0.5rem 1rem;
+            color: #4b5563;
+            transition: color 0.2s;
+        }
+        .nav-link:hover {
+            color: #1f2937;
+        }
+        .event-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+        .event-card:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Firebase Imports -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithCustomToken, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, query, where, onSnapshot, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        // Set log level for debugging
+        setLogLevel('debug');
+
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db, auth;
+        let userId;
+
+        // Initialize Firebase and authenticate user
+        async function initializeFirebase() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                userId = auth.currentUser.uid;
+                document.getElementById('userIdDisplay').innerText = `ID do Usuário: ${userId}`;
+                console.log("Firebase initialized and user authenticated.");
+                setupRealtimeListener();
+            } catch (error) {
+                console.error("Erro ao inicializar Firebase ou autenticar:", error);
+            }
+        }
+
+        // Setup real-time listener for events
+        function setupRealtimeListener() {
+            const eventsContainer = document.getElementById('eventsList');
+            const userEventsCollection = collection(db, `artifacts/${appId}/users/${userId}/events`);
+            
+            // Listen for changes in the events collection
+            onSnapshot(userEventsCollection, (snapshot) => {
+                const events = [];
+                snapshot.forEach((doc) => {
+                    events.push({ id: doc.id, ...doc.data() });
+                });
+                renderEvents(events);
+            }, (error) => {
+                console.error("Erro ao receber dados em tempo real:", error);
+            });
+        }
+
+        // Render events on the page
+        function renderEvents(events) {
+            const eventsContainer = document.getElementById('eventsList');
+            eventsContainer.innerHTML = '';
+            
+            if (events.length === 0) {
+                eventsContainer.innerHTML = '<p class="text-center text-gray-500">Nenhum evento encontrado.</p>';
+                return;
+            }
+
+            events.forEach(event => {
+                const eventCard = document.createElement('div');
+                eventCard.className = 'event-card';
+                eventCard.innerHTML = `
+                    <h3 class="font-semibold text-lg text-gray-900">${event.name}</h3>
+                    <p class="text-sm text-gray-500 mb-2">${new Date(event.date).toLocaleDateString()} - ${event.time}</p>
+                    <p class="text-sm text-gray-600">${event.description}</p>
+                    <p class="text-sm text-gray-500 mt-2">Local: ${event.location}</p>
+                `;
+                eventsContainer.appendChild(eventCard);
+            });
+        }
+        
+        // Handle form submission to add new event
+        async function addEvent(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const eventName = form.eventName.value;
+            const eventDate = form.eventDate.value;
+            const eventTime = form.eventTime.value;
+            const eventLocation = form.eventLocation.value;
+            const eventDescription = form.eventDescription.value;
+
+            try {
+                const docRef = await addDoc(collection(db, `artifacts/${appId}/users/${userId}/events`), {
+                    name: eventName,
+                    date: eventDate,
+                    time: eventTime,
+                    location: eventLocation,
+                    description: eventDescription,
+                    createdAt: serverTimestamp(),
+                });
+                console.log("Evento adicionado com ID: ", docRef.id);
+                form.reset();
+            } catch (e) {
+                console.error("Erro ao adicionar evento: ", e);
+            }
+        }
+
+        // Setup event listeners after the page loads
+        window.onload = function() {
+            initializeFirebase();
+            const form = document.getElementById('addEventForm');
+            form.addEventListener('submit', addEvent);
+        };
+    </script>
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="container flex justify-between items-center py-4">
+            <div class="flex items-center space-x-8">
+                <a href="#" class="text-xl font-bold text-gray-800">Culture Hub</a>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="telaPrincipal.html" class="nav-link font-medium">Início</a>
+                    <a href="meusEventos.html" class="nav-link font-medium">Meus Eventos</a>
+                    <a href="telaCalendario.html" class="nav-link font-medium text-blue-600">Eventos</a>
+                    <a href="sobreEmpresa.html" class="nav-link font-medium">Sobre Nós</a>
+                </nav>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#" class="nav-link font-medium text-gray-600 hidden md:block">Login</a>
+                <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition">Cadastre-se</a>
+                <a href="telaPerfil.html" class="w-10 h-10 rounded-full overflow-hidden hidden md:block">
+                    <img src="https://placehold.co/40x40/E5E7EB/4B5563?text=User" alt="User Profile" class="w-full h-full object-cover">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container py-8">
+        <h1 class="text-3xl font-bold mb-6">Calendário de Eventos</h1>
+        <p id="userIdDisplay" class="text-sm text-gray-600 mb-4"></p>
+        
+        <!-- Search and Filter Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8 flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
+            <label for="eventDateSearch" class="font-medium text-gray-700">Filtrar por data:</label>
+            <input type="date" id="eventDateSearch" class="form-input rounded-lg border-gray-300 w-full md:w-auto">
+            <button onclick="filterEventsByDate()" class="bg-blue-600 text-white font-semibold px-6 py-2 rounded-lg hover:bg-blue-700 transition w-full md:w-auto">
+                Pesquisar
+            </button>
+        </div>
+
+        <!-- Add Event Form -->
+        <h2 class="text-2xl font-bold mb-4">Adicionar Novo Evento</h2>
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <form id="addEventForm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                    <div>
+                        <label for="eventName" class="form-label block text-sm font-medium text-gray-700">Nome do Evento</label>
+                        <input type="text" id="eventName" name="eventName" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
+                    </div>
+                    <div>
+                        <label for="eventDate" class="form-label block text-sm font-medium text-gray-700">Data do Evento</label>
+                        <input type="date" id="eventDate" name="eventDate" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
+                    </div>
+                    <div>
+                        <label for="eventTime" class="form-label block text-sm font-medium text-gray-700">Hora do Evento</label>
+                        <input type="time" id="eventTime" name="eventTime" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
+                    </div>
+                    <div>
+                        <label for="eventLocation" class="form-label block text-sm font-medium text-gray-700">Localização</label>
+                        <input type="text" id="eventLocation" name="eventLocation" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
+                    </div>
+                </div>
+                <div>
+                    <label for="eventDescription" class="form-label block text-sm font-medium text-gray-700">Descrição</label>
+                    <textarea id="eventDescription" name="eventDescription" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2"></textarea>
+                </div>
+                <div class="flex justify-end mt-4">
+                    <button type="submit" class="bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                        Registrar Evento
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Event List Section -->
+        <h2 class="text-2xl font-bold mb-4">Próximos Eventos</h2>
+        <div id="eventsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Event cards will be dynamically added here -->
+        </div>
+    </main>
+</body>
+</html>
