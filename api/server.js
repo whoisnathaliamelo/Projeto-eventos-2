@@ -27,7 +27,7 @@ app.get("/eventos", (req, res) => {
   return res.json(eventos);
 });
 
-app.post("/eventos", (req, res) => {
+app.post("/eventos ", (req, res) => {
   const novoEvento = req.body;
 
   const camposObrigatorios = [
